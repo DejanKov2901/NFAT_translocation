@@ -1,17 +1,45 @@
-# This is a sample Python script.
+from tkinter import Tk, filedialog
+from skimage import io
+import matplotlib.pyplot as plt
+from Processor import Processor
+import os
+import pandas as pd
+from GUI import NFATAnalysisGUI
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+def generate_sorted_filename_list(directory_path, condition):
+    # Get a list of all files in the directory
+    file_list = [directory_path + '/' + f for f in os.listdir(directory_path) if f.lower().endswith('.tif') and not f.startswith(".") and condition in f]
+    file_list = sorted(file_list)
+    return file_list
+
+# Create an empty DataFrame
+results = pd.DataFrame(columns=["nucleus (DAPI) image", "NFAT image", "cell_index","percentage of NFAT in nucleus"])
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def main():
+    gui = NFATAnalysisGUI()
+    gui.run_gui()
+    input_directory = gui.input_directory
 
+    if not input_directory:
+        print("No directory selected. Exiting.")
+        return
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    brightfield_files = generate_sorted_filename_list(input_directory, 'Brightfield')
+    channel_405_files = generate_sorted_filename_list(input_directory, 'CF-405')  # Nucleus, DAPI staining
+    channel_488_files = generate_sorted_filename_list(input_directory, 'CF-488')  # NFAT
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
-# test_commit
+    for elem in list(zip(brightfield_files, channel_405_files, channel_488_files)):
+        image_processor = Processor(elem[0], elem[1], elem[2])
+        nuclei_rois = image_processor.find_ROIs()
+        image_processor.create_cell_images(nuclei_rois)
+        image_processor.analyze_nfat_translocation()
+        image_processor.add_results(results)
+
+    save_path = input_directory + '/results/'
+    os.makedirs(save_path, exist_ok=True)
+    with pd.ExcelWriter(save_path + "NFAT_translocation_results.xlsx") as writer:
+        results.to_excel(writer, index=False)
+
+if __name__ == "__main__":
+    main()
