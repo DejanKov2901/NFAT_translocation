@@ -9,22 +9,22 @@ The NFAT Translocation Analysis Tool is a Python script designed for the quantit
 
 
 # Installation
+- Install Python and IDE, see: ![Youtube tutorial](https://www.youtube.com/watch?v=XQMUWhQusjo&t=1s) 
+- Install Anaconda on your computer, see ![Anaconda download page](https://www.anaconda.com/download)
 - Clone Github-Repository onto local machine
-- Create a virtual environment (e.g. Conda)
-- Install packages (TODO: yaml file)
+- in the IDE-terminal, type "conda env create -f NFAT_Tool.yml". Then "conda activate NFAT_Tool". You should now be able to execute the main file. 
 
 # How to Use
 ### Input Directory:
 1. Launch the tool and provide the path to the directory containing fluorescence microscopy images in the Graphical User Interface (GUI).
-
 ![example](images/gui_image.png)
 
 ### Directory Structure:
 Ensure that the image filenames follow a specific structure:
 - File names should be identical for corresponding DAPI and NFAT images except for the suffix (405 for DAPI-stained nucleus, 488 for NFAT-detection)
+- This is crucial for the correct function of the script! 
 
 ![example](images/directory_example.png)
-
 
 ### Start Analysis:
 - Press the "Start" button in the GUI to initiate the analysis.
@@ -35,3 +35,8 @@ After the analysis is complete, the tool generates a results table summarizing t
 Note: Users should ensure that the filenames are consistent and follow the specified structure for accurate analysis.
 
 ![example](images/results_example.png)
+![example_2](images/results_example_2.png)
+
+### Example images:
+#### overlay: nucleus in purple, NFAT in green.
+![example](images/230511_JMP_NFAT_basal_5_w2CF-405.tif_cell0_overlay_image.png)
