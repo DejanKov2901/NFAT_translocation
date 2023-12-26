@@ -24,20 +24,22 @@ def main():
     if not input_directory:
         print("No directory selected. Exiting.")
         return
+    save_path = input_directory + '/results/'
+    os.makedirs(save_path, exist_ok=True)
 
     brightfield_files = generate_sorted_filename_list(input_directory, 'Brightfield')
     channel_405_files = generate_sorted_filename_list(input_directory, 'CF-405')  # Nucleus, DAPI staining
     channel_488_files = generate_sorted_filename_list(input_directory, 'CF-488')  # NFAT
 
     for elem in list(zip(brightfield_files, channel_405_files, channel_488_files)):
-        image_processor = Processor(elem[0], elem[1], elem[2])
+        image_processor = Processor(elem[0], elem[1], elem[2], save_path)
         nuclei_rois = image_processor.find_ROIs()
         image_processor.create_cell_images(nuclei_rois)
         image_processor.analyze_nfat_translocation()
         image_processor.add_results(results)
+        image_processor.save_cell_images()
 
-    save_path = input_directory + '/results/'
-    os.makedirs(save_path, exist_ok=True)
+
     with pd.ExcelWriter(save_path + "NFAT_translocation_results.xlsx") as writer:
         results.to_excel(writer, index=False)
 

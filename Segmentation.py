@@ -59,7 +59,15 @@ class Nucleus_Segmentation:
 
 class NFAT_Segmentation:
     def preprocess_image(self, image):
-        thresholded = image > filters.threshold_otsu(image)
+        # Apply Gaussian blur
+        blurred = filters.gaussian(image, sigma=2)
+
+        # Adaptive thresholding
+        # thresholded = blurred > filters.threshold_otsu(blurred)
+        # max_value = np.max(blurred)
+        threshold = np.percentile(blurred, 85)
+        thresholded = blurred > threshold
+
         return thresholded
 
     def segment_NFAT(self, image):
