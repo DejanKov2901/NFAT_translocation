@@ -9,8 +9,8 @@ The NFAT Translocation Analysis Tool is a Python script designed for the quantit
 
 
 # Installation
-- Install Python and IDE, see: ![Youtube tutorial](https://www.youtube.com/watch?v=XQMUWhQusjo&t=1s) 
-- Install Anaconda on your computer, see ![Anaconda download page](https://www.anaconda.com/download)
+- Install Python and IDE, see: [Youtube tutorial](https://www.youtube.com/watch?v=XQMUWhQusjo&t=1s) 
+- Install Anaconda on your computer, see [Anaconda download page](https://www.anaconda.com/download)
 - Clone Github-Repository onto local machine
 - in the IDE-terminal, type "conda env create -f NFAT_Tool.yml". Then "conda activate NFAT_Tool". You should now be able to execute the main file. 
 
