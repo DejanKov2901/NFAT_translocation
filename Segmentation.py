@@ -1,10 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage.measure import regionprops
-from skimage import io, color, filters, morphology, measure, morphology
+from skimage import io, filters, measure
 from skimage.segmentation import clear_border
-from skimage.color import label2rgb
-
+from scipy import ndimage
+from skimage.restoration import rolling_ball
 
 class Nucleus_Segmentation:
 
@@ -15,7 +15,10 @@ class Nucleus_Segmentation:
         # Adaptive thresholding
         thresholded = blurred > filters.threshold_otsu(blurred)
 
-        return thresholded
+        # Fill holes in the binary image
+        filled_nucleus_binary = ndimage.binary_fill_holes(thresholded)
+
+        return filled_nucleus_binary
 
 
     def segment_nuclei(self, image):
@@ -60,11 +63,8 @@ class Nucleus_Segmentation:
 class NFAT_Segmentation:
     def preprocess_image(self, image):
         # Apply Gaussian blur
-        blurred = filters.gaussian(image, sigma=2)
+        blurred = filters.gaussian(image, sigma=1)
 
-        # Adaptive thresholding
-        # thresholded = blurred > filters.threshold_otsu(blurred)
-        # max_value = np.max(blurred)
         threshold = np.percentile(blurred, 85)
         thresholded = blurred > threshold
 
@@ -73,6 +73,10 @@ class NFAT_Segmentation:
     def segment_NFAT(self, image):
         # Preprocess the image
         nfat_image = self.preprocess_image(image)
+
+        # maybe use deep learning based segmentation methods? U-Net
+
+        # label image
         nfat_image = measure.label(nfat_image)
 
         nfat_image[nfat_image > 0] = 1

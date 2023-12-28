@@ -1,4 +1,3 @@
-from tkinter import Tk, filedialog
 from skimage import io
 import matplotlib.pyplot as plt
 from Processor import Processor
@@ -34,6 +33,7 @@ def main():
     for elem in list(zip(brightfield_files, channel_405_files, channel_488_files)):
         image_processor = Processor(elem[0], elem[1], elem[2], save_path)
         nuclei_rois = image_processor.find_ROIs()
+        image_processor.subtract_background_NFAT_image()
         image_processor.create_cell_images(nuclei_rois)
         image_processor.analyze_nfat_translocation()
         image_processor.add_results(results)

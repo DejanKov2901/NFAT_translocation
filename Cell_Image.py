@@ -3,12 +3,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class CellImage:
-    def __init__(self, nucleus_image_labeled, nucleus_image_raw, nfat_image_raw, nucleus_channel_filename, nfat_channel_filename, index):
+    def __init__(self, nucleus_image_labeled, nucleus_image_raw, nfat_image_background_subtracted, nucleus_channel_filename, nfat_channel_filename, index):
         self.nucleus_image_labeled = nucleus_image_labeled
         self.nucleus_image_raw = nucleus_image_raw
 
         self.nfat_image_labeled = None
-        self.nfat_image_raw = nfat_image_raw
+        self.nfat_image_background_subtracted = nfat_image_background_subtracted
 
         self.nfat_in_nucleus = 0.0  # min 0.0, max 1.0
         self.nucleus_channel_filename = nucleus_channel_filename
