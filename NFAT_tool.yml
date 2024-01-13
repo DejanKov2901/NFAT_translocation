@@ -3,7 +3,8 @@ channels:
   - defaults
 dependencies:
   - pandas
-  - tkinter
+  - tk
   - scikit-image
   - matplotlib
   - numpy
+  - openpyxl

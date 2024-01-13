@@ -6,9 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 class Processor:
-    def __init__(self, brightfield_channel_path, channel_405_path, channel_488_path, save_path):
+    def __init__(self, channel_405_path, channel_488_path, save_path):
         self.cell_list = list()
-        self.brightfield_channel_image = io.imread(brightfield_channel_path)
         self.channel_405_image_labeled = None
         self.channel_405_image = io.imread(channel_405_path)  # Nucleus, DAPI staining
         self.channel_405_filename = os.path.basename(channel_405_path)
