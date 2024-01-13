@@ -1,4 +1,5 @@
 # NFAT translocation 
+## About 
 The NFAT Translocation Analysis Tool is a Python script designed for the quantitative analysis of NFAT (nuclear factor of activated T cells) translocation into the nucleus based on fluorescence microscopy images.
 
 ## Features
@@ -17,7 +18,7 @@ The NFAT Translocation Analysis Tool is a Python script designed for the quantit
 ## How to Use
 ### Input Directory:
 1. Launch the tool and provide the path to the directory containing fluorescence microscopy images in the Graphical User Interface (GUI).
-![example](images/gui_image.png){:width="300px"}
+![example](images/gui_image.png)
 
 ### Directory Structure:
 Ensure that the image filenames follow a specific structure:
@@ -25,7 +26,7 @@ Ensure that the image filenames follow a specific structure:
   - In the example, the difference lies only in "w2CF-405" (for imaging of DAPI-stained nuclei) and "w3CF-488" (for NFAT-detection) (cameras from microscope). This enables to match the corresponding files to each other.
 - This is crucial for the correct function of the script! 
 
-![example](images/directory_structure_new.png){:width="300px"}
+![example](images/directory_structure_new.png)
 
 ### Start Analysis:
 - Press the "Start" button in the GUI to initiate the analysis.
@@ -44,12 +45,19 @@ For each nucleus-NFAT image-pair, five images are generated:
 
 To open these images in Fiji/ImageJ, use the bioformats importer. 
 
-![example](images/results_structure_new.png){:width="300px"}
+![example](images/results_structure_new.png)
 
 
 The Excel table looks like this, for example: 
-![example_2](images/results_example_2.png){:width="300px"}
+![example_2](images/results_example_2.png)
 
 ### Example images:
 #### overlay: nucleus in purple, NFAT in green.
-![example](images/230511_JMP_NFAT_basal_5_w2CF-405.tif_cell0_overlay_image.png){:width="300px"}
+![example](images/230511_JMP_NFAT_basal_5_w2CF-405.tif_cell0_overlay_image.png)
+
+
+## License
+This code runs under the Apache 2.0 license.
+
+## References and citing 
+If you use the code, 
