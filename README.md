@@ -1,4 +1,6 @@
-# NFAT translocation 
+# NFAT translocation
+[![DOI](https://zenodo.org/badge/734651356.svg)](https://zenodo.org/doi/10.5281/zenodo.10511337)
+
 ## About 
 The NFAT Translocation Analysis Tool is a Python script designed for the quantitative analysis of NFAT (nuclear factor of activated T cells) translocation into the nucleus based on fluorescence microscopy images.
 
@@ -60,4 +62,4 @@ The Excel table looks like this, for example:
 This code runs under the Apache 2.0 license.
 
 ## References and citing 
-If you use the code, 
+If you use code and this leads to a publication, please cite the DOI above.
