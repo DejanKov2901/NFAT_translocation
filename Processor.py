@@ -4,6 +4,7 @@ import os
 from Segmentation import Nucleus_Segmentation, NFAT_Segmentation
 import matplotlib.pyplot as plt
 import numpy as np
+from cell_selection_tool import ImageViewer
 
 class Processor:
     def __init__(self, channel_405_path, channel_488_path, save_path):
@@ -19,11 +20,22 @@ class Processor:
         self.nfat_segmentation = NFAT_Segmentation()
         self.save_path = save_path
         self.channel_488_image_background_subtracted = None
+        width = len(self.channel_405_image[0])
+        height = len(self.channel_405_image)
+
+        self.image_viewer = ImageViewer(self.channel_405_image, width, height)
 
     def find_ROIs(self):
         self.channel_405_image_labeled = self.nuclei_segmentation.segment_nuclei(self.channel_405_image)
         nuclei_rois = self.nuclei_segmentation.generate_nucleus_rois(self.channel_405_image_labeled)
         return nuclei_rois
+
+    def label_nuclei(self):
+        self.channel_405_image_labeled = self.nuclei_segmentation.segment_nuclei(self.channel_405_image)
+
+    def select_cells(self):
+        self.image_viewer.run_mainloop()
+        return self.image_viewer.return_rois()
 
     def create_cell_images(self, nuclei_rois):
         for index, roi in enumerate(nuclei_rois):
