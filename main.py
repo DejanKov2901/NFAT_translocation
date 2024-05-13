@@ -35,7 +35,10 @@ def main():
         print("now processing files:" + str(elem))
 
         image_processor = Processor(elem[0], elem[1], save_path)
-        nuclei_rois = image_processor.find_ROIs()
+        # nuclei_rois = image_processor.find_ROIs()  # replace with manual user input?
+        image_processor.label_nuclei()
+        nuclei_rois = image_processor.select_cells()
+
         image_processor.subtract_background_NFAT_image()
         image_processor.create_cell_images(nuclei_rois)
         image_processor.analyze_nfat_translocation()
