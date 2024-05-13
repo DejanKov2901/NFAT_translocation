@@ -14,7 +14,7 @@ The NFAT Translocation Analysis Tool is a Python script designed for the quantit
 ## Installation
 1. If Python is already installed, skip to 3. Else: Install Python and IDE, see: [Youtube tutorial](https://www.youtube.com/watch?v=XQMUWhQusjo&t=1s) 
 2. Install Anaconda on your computer, see [Anaconda download page](https://www.anaconda.com/download)
-3. Clone Github-Repository onto local machine
+3. Clone Github-Repository to local machine
 4. in the IDE-terminal, type "conda env create -f NFAT_Tool.yml". Then "conda activate NFAT_Tool". You should now be able to execute the main file. 
 
 ## How to Use
@@ -32,7 +32,13 @@ Ensure that the image filenames follow a specific structure:
 
 ### Start Analysis:
 - Press the "Start" button in the GUI to initiate the analysis.
-- The tool will automatically identify and pair corresponding nuclei and NFAT images based on the specified filename structure.
+- For each file, define rectangular regions of interest. 
+  - click on "Add ROI"
+  - to generate a ROI, click and release the left mouse button from the top left to the bottom right corner of the ROI, for example
+  - repeat these steps for each cell in the file
+  - If you're done with the file, click on "Continue with next image"
+
+![example](images/cell_selection.png)
 
 ### Results Output:
 After the analysis is completed, the tool generates a results table summarizing the percentage of NFAT translocation into the nucleus for each image pair.
@@ -47,7 +53,7 @@ For each nucleus-NFAT image-pair, five images are generated:
 
 To open these images in Fiji/ImageJ, use the bioformats importer. 
 
-![example](images/results_structure_new.png)
+![example](images/results_structure.png)
 
 
 The Excel table looks like this, for example: 
