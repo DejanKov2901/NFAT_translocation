@@ -79,10 +79,12 @@ class Processor:
             nfat_image_background_subtracted = cell.nfat_image_background_subtracted
             nfat_image_labeled = cell.nfat_image_labeled
 
-            io.imsave(self.save_path + '/' + self.channel_405_filename + '_cell' + str(cell.index) + '_nucleus_image_raw.tif', nucleus_image_raw, check_contrast=False)
-            io.imsave(self.save_path + '/' + self.channel_405_filename + '_cell' + str(cell.index) + '_nucleus_image_labeled.tif', nucleus_image_labeled, check_contrast=False)
-            io.imsave(self.save_path + '/' + self.channel_488_filename + '_cell' + str(cell.index) + '_nfat_image_background_subtracted.tif', nfat_image_background_subtracted, check_contrast=False)
-            io.imsave(self.save_path + '/' + self.channel_488_filename + '_cell' + str(cell.index) + '_nfat_image_labeled.tif', nfat_image_labeled, check_contrast=False)
+            save_path_cell = self.save_path + self.channel_405_filename[:len(self.channel_405_filename) - 8] + '/cell_' + str(i) + '/'
+            os.makedirs(save_path_cell, exist_ok=True)
+            io.imsave(save_path_cell + self.channel_405_filename + '_cell' + str(cell.index) + '_nucleus_image_raw.tif', nucleus_image_raw, check_contrast=False)
+            io.imsave(save_path_cell + self.channel_405_filename + '_cell' + str(cell.index) + '_nucleus_image_labeled.tif', nucleus_image_labeled, check_contrast=False)
+            io.imsave(save_path_cell + self.channel_488_filename + '_cell' + str(cell.index) + '_nfat_image_background_subtracted.tif', nfat_image_background_subtracted, check_contrast=False)
+            io.imsave(save_path_cell + self.channel_488_filename + '_cell' + str(cell.index) + '_nfat_image_labeled.tif', nfat_image_labeled, check_contrast=False)
 
             # Define colors for the nucleus and NFAT
             nucleus_color = [0.5, 0, 0.5]  # Purple
@@ -101,4 +103,4 @@ class Processor:
             # plt.axis('off')  # Turn off axis labels
             # plt.show()
 
-            io.imsave(self.save_path + '/' + self.channel_405_filename + '_cell' + str(cell.index) + '_overlay_image.tif', overlay_img, check_contrast=False)
+            io.imsave(save_path_cell + self.channel_405_filename + '_cell' + str(cell.index) + '_overlay_image.tif', overlay_img, check_contrast=False)
