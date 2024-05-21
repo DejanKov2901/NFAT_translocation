@@ -27,24 +27,25 @@ def main():
     save_path = input_directory + '/results/'
     os.makedirs(save_path, exist_ok=True)
 
-    # brightfield_files = generate_sorted_filename_list(input_directory, 'Brightfield')
+    brightfield_files = generate_sorted_filename_list(input_directory, 'Brightfield')
     channel_405_files = generate_sorted_filename_list(input_directory, 'CF-405')  # Nucleus, DAPI staining
     channel_488_files = generate_sorted_filename_list(input_directory, 'CF-488')  # NFAT
 
-    for elem in list(zip(channel_405_files, channel_488_files)):
+    for elem in list(zip(channel_405_files, channel_488_files, brightfield_files)):
         print("now processing files:" + str(elem))
 
-        image_processor = Processor(elem[0], elem[1], save_path)
+        image_processor = Processor(elem[0], elem[1], save_path, elem[2])
         # nuclei_rois = image_processor.find_ROIs()  # replace with manual user input?
-        image_processor.label_nuclei()
+
         nuclei_rois = image_processor.select_cells()
 
         image_processor.subtract_background_NFAT_image()
         image_processor.create_cell_images(nuclei_rois)
+        image_processor.label_nuclei()
+
         image_processor.analyze_nfat_translocation()
         image_processor.add_results(results)
         image_processor.save_cell_images()
-
 
     with pd.ExcelWriter(save_path + "NFAT_translocation_results.xlsx") as writer:
         results.to_excel(writer, index=False)
