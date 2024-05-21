@@ -4,7 +4,7 @@ from PIL import Image, ImageTk, ImageDraw
 from skimage import io
 
 class ImageViewer:
-    def __init__(self, nucleus_image, width, height):
+    def __init__(self, nucleus_image, width, height, brightfield_image):
         self.root = tk.Tk()
         self.root.title("NFAT Translocation Analysis Tool")
 
@@ -32,6 +32,9 @@ class ImageViewer:
         self.btn_delete_roi = tk.Button(self.root, text="Delete ROI", command=self.delete_roi)
         self.btn_delete_roi.pack(pady=5)
 
+        self.show_hide_button = tk.Button(self.root, text="Show/Hide Brightfield Image", command=self.toggle_image)
+        self.show_hide_button.pack(pady=5)
+
         self.btn_continue = tk.Button(self.root, text="Continue with next image", command=self.continue_next_image)
         self.btn_continue.pack(pady=5)
 
@@ -43,16 +46,26 @@ class ImageViewer:
         self.rois = []
         self.selected_roi_index = None
 
-        self.image = nucleus_image
-        self.image = Image.fromarray(self.image)
+        self.nucleus_image = nucleus_image
+        self.nucleus_image = Image.fromarray(self.nucleus_image)
         self.show_image()
 
         self.width = width
         self.height = height
 
-    def show_image(self):
-        self.image = self.image.resize((500, 500))  # Resize image to fit canvas
-        self.photo = ImageTk.PhotoImage(self.image)
+        self.is_brightfield_shown = False
+
+        self.brightfield_image = brightfield_image
+        self.brightfield_image = Image.fromarray(self.brightfield_image)
+
+    def show_image(self, brightfield = False):
+        if brightfield:
+            image = self.brightfield_image
+        else:
+            image = self.nucleus_image
+
+        image = image.resize((500, 500))  # Resize image to fit canvas
+        self.photo = ImageTk.PhotoImage(image)
         self.canvas.delete("all")
         self.image_id = self.canvas.create_image(0, 0, anchor=tk.NW, image=self.photo)
         self.draw_rois()
@@ -100,6 +113,10 @@ class ImageViewer:
         self.listbox.delete(0, tk.END)
         for i, roi_points in enumerate(self.rois, start=1):
             self.listbox.insert(tk.END, f"ROI {i}: {roi_points}")
+
+    def toggle_image(self):
+        self.is_brightfield_shown = not self.is_brightfield_shown
+        self.show_image(brightfield=self.is_brightfield_shown)
 
     def select_roi(self, event):
         selected_index = self.listbox.curselection()
