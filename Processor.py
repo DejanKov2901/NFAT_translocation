@@ -97,6 +97,11 @@ class Processor:
             minr, minc, maxr, maxc = roi
             # nucleus_image_labeled = self.channel_405_image_labeled[minr:maxr, minc:maxc]
             # nucleus_image_labeled[nucleus_image_labeled > 0] = 1
+            if minr > maxr:
+                minr, maxr = maxr, minr
+            if minc > maxc:
+                minc, maxc = maxc, minc
+
             nucleus_image_raw = self.channel_405_image[minr:maxr, minc:maxc]
             nfat_image_background_subtracted = self.channel_488_image_background_subtracted[minr:maxr, minc:maxc]
 
