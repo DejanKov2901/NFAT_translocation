@@ -4,12 +4,6 @@
 ## About 
 The NFAT Translocation Analysis Tool is a Python script designed for the quantitative analysis of NFAT (nuclear factor of activated T cells) translocation into the nucleus based on fluorescence microscopy images.
 
-## Features
-
-- Segmentation: Utilizes simple segmentation methods to identify the nuclei and NFAT proteins in fluorescence microscopy images.
-- Intersection Analysis: Calculates the intersection area between the segmented nuclei and NFAT areas, providing insights into NFAT translocation into the nucleus.
-- Results Table: Generates a results table summarizing the percentage of NFAT inside the nucleus for each image pair (DAPI stained nucleus, NFAT).
-
 
 ## Installation
 1. If Python is already installed, skip to 3. Else: Install Python and IDE, see: [Youtube tutorial](https://www.youtube.com/watch?v=XQMUWhQusjo&t=1s) 
@@ -25,20 +19,27 @@ The NFAT Translocation Analysis Tool is a Python script designed for the quantit
 ### Directory Structure:
 Ensure that the image filenames follow a specific structure:
 - File names should be identical for corresponding DAPI and NFAT images except for the suffix
-  - In the example, the difference lies only in "w2CF-405" (for imaging of DAPI-stained nuclei) and "w3CF-488" (for NFAT-detection) (cameras from microscope). This enables to match the corresponding files to each other.
+  - In the example, the difference lies only in "w2CF-405" (for imaging of DAPI-stained nuclei) and "w3CF-488" (for NFAT-detection) (cameras from microscope) or in "w1Brightfield", respectively. This enables to match the corresponding files to each other.
 - This is crucial for the correct function of the script! 
 
-![example](images/directory_structure_new.png)
+![example](images/directory_structure.png)
 
-### Start Analysis:
+### Analysis:
 - Press the "Start" button in the GUI to initiate the analysis.
 - For each file, define rectangular regions of interest. 
   - click on "Add ROI"
   - to generate a ROI, click and release the left mouse button from the top left to the bottom right corner of the ROI, for example
   - repeat these steps for each cell in the file
-  - If you're done with the file, click on "Continue with next image"
+  - If you're not sure that the ROI contains the whole cell, you can switch to the brightfield view.
+  - If you're done with the file, click on "Continue with next image".
 
-![example](images/cell_selection.png)
+![example](images/cell_selection_new.png)
+
+- Now you will be asked to manually threshold the nucleus and the NFAT area in all of the previously defined ROIs of this file.
+
+![example](images/nucleus_thresholding.png)
+
+- Once the thresholding of the nucleus and NFAT area are done for all cells, continue with the next file and define ROIs again. 
 
 ### Results Output:
 After the analysis is completed, the tool generates a results table summarizing the percentage of NFAT translocation into the nucleus for each image pair.
