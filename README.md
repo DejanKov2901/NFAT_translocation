@@ -8,12 +8,22 @@ The NFAT Translocation Analysis Tool is a Python script designed for the quantit
 ## Installation
 1. If Python is already installed, skip to 3. Else: Install Python and IDE, see: [Youtube tutorial](https://www.youtube.com/watch?v=XQMUWhQusjo&t=1s) 
 2. Install Anaconda on your computer, see [Anaconda download page](https://www.anaconda.com/download)
-3. Clone Github-Repository to local machine
-4. in the IDE-terminal, type "conda env create -f NFAT_Tool.yml". Then "conda activate NFAT_Tool". You should now be able to execute the main file. 
+3. Navigate to the preferred folder for installation. Clone GitHub-Repository to local machine. You can accomplish this by typing 'git clone https://github.com/DejanKov2901/NFAT_translocation.git'. 
+4. In the terminal window, create a conda environment NFAT with a specific python version: ```conda create --name NFAT python=3.10.0```
+5. Activate the conda environment: ```conda activate NFAT```
+6. Install the necessary packages and their dependencies by executing this command in the terminal:
+```
+pip install pandas tk scikit-image matplotlib numpy openpyxl
+```
+- Alternatively, install the packages separately (pip install <package>)
+
+
 
 ## How to Use
 ### Input Directory:
-1. Launch the tool and provide the path to the directory containing fluorescence microscopy images in the Graphical User Interface (GUI).
+1. Activate the conda environment in the terminal by typing ```conda activate NFAT```, if it is not already activated.
+2. Launch the tool by typing ```python3 main.py```. Make sure that you navigated to the NFAT folder on your computer using the cd-command.
+2. Provide the path to the directory containing fluorescence microscopy images in the Graphical User Interface (GUI).
 ![example](images/gui_image.png)
 
 ### Directory Structure:
